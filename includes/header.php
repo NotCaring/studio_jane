@@ -23,6 +23,17 @@
                     <a class="nav-link" href="contacto.php">Contacto</a>
                 </li>
                 <li class="nav-item">
+                    <?php if (isset($_SESSION['client_id'])): ?>
+                        <a class="nav-link" href="client/dashboard.php">
+                            <i class="fas fa-user me-1"></i>Mi Cuenta
+                        </a>
+                    <?php else: ?>
+                        <a class="nav-link" href="client/login.php">
+                            <i class="fas fa-sign-in-alt me-1"></i>Iniciar Sesión
+                        </a>
+                    <?php endif; ?>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link btn btn-primary text-white px-3 ms-2" href="reservar.php">
                         <i class="fas fa-calendar-alt me-1"></i>Reservar
                     </a>
