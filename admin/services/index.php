@@ -96,6 +96,7 @@ $stats['avg_price'] = $stmt->fetch()['avg_price'] ?? 0;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="../../assets/css/style.css" rel="stylesheet">
+    <link href="../../assets/css/admin.css" rel="stylesheet">
 </head>
 <body>
     <div class="admin-layout">
@@ -133,7 +134,7 @@ $stats['avg_price'] = $stmt->fetch()['avg_price'] ?? 0;
 
                 <!-- Statistics Cards -->
                 <div class="stats-grid">
-                    <div class="stat-card">
+                    <div class="stat-card hover-lift">
                         <div class="stat-icon">
                             <i class="fas fa-spa"></i>
                         </div>
@@ -143,7 +144,7 @@ $stats['avg_price'] = $stmt->fetch()['avg_price'] ?? 0;
                         </div>
                     </div>
                     
-                    <div class="stat-card">
+                    <div class="stat-card hover-lift">
                         <div class="stat-icon">
                             <i class="fas fa-star"></i>
                         </div>
@@ -153,7 +154,7 @@ $stats['avg_price'] = $stmt->fetch()['avg_price'] ?? 0;
                         </div>
                     </div>
                     
-                    <div class="stat-card">
+                    <div class="stat-card hover-lift">
                         <div class="stat-icon">
                             <i class="fas fa-tags"></i>
                         </div>
@@ -163,7 +164,7 @@ $stats['avg_price'] = $stmt->fetch()['avg_price'] ?? 0;
                         </div>
                     </div>
                     
-                    <div class="stat-card">
+                    <div class="stat-card hover-lift">
                         <div class="stat-icon">
                             <i class="fas fa-dollar-sign"></i>
                         </div>
@@ -228,7 +229,7 @@ $stats['avg_price'] = $stmt->fetch()['avg_price'] ?? 0;
                         </div>
                     <?php else: ?>
                         <?php foreach ($services as $service): ?>
-                            <div class="service-card">
+                            <div class="service-card hover-lift">
                                 <div class="service-image">
                                     <img src="<?php echo htmlspecialchars($service['image']); ?>" 
                                          alt="<?php echo htmlspecialchars($service['name']); ?>">
@@ -300,6 +301,86 @@ $stats['avg_price'] = $stmt->fetch()['avg_price'] ?? 0;
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Service Modal -->
+    <div class="modal fade" id="addServiceModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-plus me-2"></i>Nuevo Servicio
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="POST" action="create.php" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Nombre del Servicio *</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="category_id" class="form-label">Categoría *</label>
+                                    <select class="form-select" id="category_id" name="category_id" required>
+                                        <option value="">Seleccionar categoría</option>
+                                        <?php foreach ($categories as $category): ?>
+                                            <option value="<?php echo $category['id']; ?>">
+                                                <?php echo htmlspecialchars($category['name']); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="price" class="form-label">Precio *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" class="form-control" id="price" name="price" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="duration" class="form-label">Duración (minutos) *</label>
+                                    <input type="number" class="form-control" id="duration" name="duration" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Imagen del Servicio</label>
+                            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured" value="1">
+                            <label class="form-check-label" for="is_featured">
+                                Marcar como servicio destacado
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Crear Servicio
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
